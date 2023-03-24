@@ -292,15 +292,6 @@ function detect_zammad_packages () {
   fi
 }
 
-function zammad_packages_uninstall_all_files () {
-  detect_zammad_packages
-
-  if [ "${ZAMMAD_PACKAGES}" == "yes" ]; then
-    echo "# Remove custom packages files temporarily..."
-    zammad run rake zammad:package:uninstall_all_files
-  fi
-}
-
 function zammad_packages_reinstall_all () {
   detect_zammad_packages
 

@@ -3,14 +3,6 @@
 # packager.io preinstall script
 #
 
-PATH=/opt/zammad/bin:/opt/zammad/vendor/bundle/bin:/sbin:/bin:/usr/sbin:/usr/bin:
-
-# import config
-. /opt/zammad/contrib/packager.io/config
-
-# import functions
-. /opt/zammad/contrib/packager.io/functions
-
 #
 # Make sure that after installation/update there can be only one sprockets manifest,
 #   the one coming from the package. The package manager will ignore any duplicate files
@@ -20,4 +12,12 @@ PATH=/opt/zammad/bin:/opt/zammad/vendor/bundle/bin:/sbin:/bin:/usr/sbin:/usr/bin
 rm -f /opt/zammad/public/assets/.sprockets-manifest-*.json || true
 
 # remove local files of the packages
-zammad_packages_uninstall_all_files
+if [ -n "$(which zammad 2> /dev/null)" ]; then
+   PATH=/opt/zammad/bin:/opt/zammad/vendor/bundle/bin:/sbin:/bin:/usr/sbin:/usr/bin:
+
+   if [ "$(zammad run rails r 'puts Package.count.positive?')" == "true" ] && [ -n "$(which yarn 2> /dev/null)" ] && [ -n "$(which node 2> /dev/null)" ]; then
+      echo "# Detected custom packages..."
+      echo "# Remove custom packages files temporarily..."
+      zammad run rake zammad:package:uninstall_all_files
+   fi
+fi
