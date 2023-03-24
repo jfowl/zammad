@@ -12,7 +12,7 @@ module Tasks
         end
 
         def self.description
-          'Reinstall an installed Zammad addon package'
+          'Reinstall an installed Zammad addon package without executing package migrations'
         end
 
         ARGUMENT_COUNT = 1
