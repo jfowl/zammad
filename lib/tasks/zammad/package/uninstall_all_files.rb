@@ -7,7 +7,7 @@ module Tasks
     module Package
       class UninstallAllFiles < Tasks::Zammad::Command
         def self.description
-          'Uninstalls all package files in the filesystem only to prevent errors on zammad update'
+          'Uninstalls all package files in the filesystem only'
         end
 
         def self.task_handler
