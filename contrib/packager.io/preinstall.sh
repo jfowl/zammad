@@ -17,7 +17,7 @@ if [ -n "$(which zammad 2> /dev/null)" ]; then
 
    RAKE_TASKS=$(zammad run rake --tasks | grep "zammad:package:uninstall_all_files")
 
-   if [ x$RAKE_TASKS == 'x' ]; then
+   if [[ x$RAKE_TASKS == 'x' ]]; then
       echo "# Code does not yet fit, skipping automatic package uninstall !"
       echo "... This is not an error and will work during your next upgrade ..."
       exit 0
